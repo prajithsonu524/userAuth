@@ -2,8 +2,9 @@ const jwt = require('jsonwebtoken')
 const EXPRIRE_TIME = 3600
 const HASH = 'wasssssssupppppppppppofhdsf4t354bjkbfkdf'
 
-const generateJWTToken = (username) => {
+const generateJWTToken = ({ id, username }) => {
   const payload = {
+    id,
     username
   }
   const token = jwt.sign(payload, HASH, {

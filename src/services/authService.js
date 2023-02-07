@@ -29,7 +29,7 @@ const login = async (username, password) => {
   const userData = user.dataValues
   const userIsValid = await passUtil.verifyPassword(password, userData.password)
   if (!userIsValid) { throw new HttpError(400, 'Wrong Password') }
-  const token = jwtUtil.generateJWTToken(username)
+  const token = jwtUtil.generateJWTToken(userData)
   return token
 }
 
