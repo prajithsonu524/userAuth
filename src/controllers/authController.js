@@ -43,4 +43,14 @@ const validateToken = async (request, response) => {
   }
 }
 
-module.exports = { createUser, login, validateToken }
+const refreshToken = (request, response) => {
+  try {
+    const { token } = request.query
+    const newToken = authService.refreshToken(token)
+    response.json({ message: 'Success', data: { token: newToken } })
+  } catch (error) {
+    catchBlockHandler(error, response)
+  }
+}
+
+module.exports = { createUser, login, validateToken, refreshToken }

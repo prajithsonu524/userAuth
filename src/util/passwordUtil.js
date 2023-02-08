@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt')
-const SALT_ROUNDS = 5
-const generateHashPassword = async (password) => {
+const SALT_ROUNDS = process.env.SALT_ROUNDS
+const generateHashPassword = (password) => {
   return new Promise((resolve, reject) => {
     bcrypt.hash(password, SALT_ROUNDS, (error, hashedPass) => {
       if (error) reject(error)
@@ -9,7 +9,7 @@ const generateHashPassword = async (password) => {
   })
 }
 
-const verifyPassword = async (password, passwordStoredInDB) => {
+const verifyPassword = (password, passwordStoredInDB) => {
   return new Promise((resolve, reject) => {
     bcrypt.compare(password, passwordStoredInDB, (error, verified) => {
       if (error) reject(error)
