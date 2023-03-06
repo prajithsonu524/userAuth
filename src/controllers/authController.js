@@ -26,8 +26,6 @@ const login = async (request, response) => {
     const token = await authService.login(username, password)
     response.status(200).json({ message: 'Success', data: { token } })
   } catch (error) {
-    console.log(error)
-
     catchBlockHandler(error, response)
   }
 }
@@ -38,19 +36,8 @@ const validateToken = async (request, response) => {
     const decoded = await authService.validateToken(token)
     response.status(200).json({ message: 'Token is valid', data: decoded })
   } catch (error) {
-    console.log(error)
     catchBlockHandler(error, response)
   }
 }
 
-const refreshToken = (request, response) => {
-  try {
-    const { token } = request.query
-    const newToken = authService.refreshToken(token)
-    response.json({ message: 'Success', data: { token: newToken } })
-  } catch (error) {
-    catchBlockHandler(error, response)
-  }
-}
-
-module.exports = { createUser, login, validateToken, refreshToken }
+module.exports = { createUser, login, validateToken }

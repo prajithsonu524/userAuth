@@ -17,6 +17,7 @@ const createUser = async (username, password) => {
     if (error instanceof UniqueConstraintError) {
       throw new HttpError(400, 'Username already exists')
     }
+    throw new HttpError(500, 'Internal Server Error')
   }
 }
 
@@ -42,11 +43,8 @@ const validateToken = async (token) => {
     const validToken = await jwtUtil.verifyToken(token)
     return validToken
   } catch (error) {
-    console.log(error)
     throw new HttpError(498, 'Invalid Token')
   }
 }
-const refreshToken = async (token) => {
-  return true
-}
-module.exports = { createUser, login, validateToken, refreshToken }
+
+module.exports = { createUser, login, validateToken }
