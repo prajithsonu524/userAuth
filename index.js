@@ -13,4 +13,5 @@ client.connect()
 
 client.on('error', err => console.log('Redis Client Error', err))
 app.use('/auth', authRoutes)
+
 app.listen(5000, () => console.log('Started on port 5000'))

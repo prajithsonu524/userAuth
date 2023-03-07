@@ -1,0 +1,43 @@
+version: "3"
+services:
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: users
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./database/data:/var/lib/postgresql/data
+
+  migration:
+
+    build:
+      context: .
+      dockerfile: Dockerfile.migration
+    depends_on:
+      - db
+      - redis
+
+    environment:
+      NODE_ENV: docker
+
+  server:
+
+    build: .
+    depends_on:
+      - db
+      - redis
+    ports:
+      - "3000:5000"
+    environment:
+
+      NODE_ENV: docker

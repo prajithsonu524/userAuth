@@ -4,7 +4,6 @@ const generateHashPassword = (password) => {
   return new Promise((resolve, reject) => {
     bcrypt.hash(password, parseInt(SALT_ROUNDS), (error, hashedPass) => {
       if (error) reject(error)
-
       resolve(hashedPass)
     })
   })

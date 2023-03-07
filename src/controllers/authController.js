@@ -26,6 +26,7 @@ const login = async (request, response) => {
     const token = await authService.login(username, password)
     response.status(200).json({ message: 'Success', data: { token } })
   } catch (error) {
+    console.log(error)
     catchBlockHandler(error, response)
   }
 }
